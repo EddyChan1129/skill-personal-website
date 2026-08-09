@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import { ContactForm } from "./contact-form";
 
 type Locale = "en" | "zh";
@@ -252,7 +253,42 @@ export default function Home() {
 
   function toggleLocale() {
     const nextLocale = locale === "en" ? "zh" : "en";
-    setLocale(nextLocale);
+    const sections = [...document.querySelectorAll<HTMLElement>("main > section")];
+    const headerOffset = 84;
+    const anchor = sections.reduce<HTMLElement | undefined>((closest, section) => {
+      if (!closest) return section;
+
+      const distance = Math.abs(section.getBoundingClientRect().top - headerOffset);
+      const closestDistance = Math.abs(
+        closest.getBoundingClientRect().top - headerOffset,
+      );
+
+      return distance < closestDistance ? section : closest;
+    }, undefined);
+
+    const anchorTop = anchor?.getBoundingClientRect().top;
+    const update = () => {
+    flushSync(() => setLocale(nextLocale));
+    if (anchor && anchorTop !== undefined) {
+      requestAnimationFrame(() => {
+        window.scrollBy(0, anchor.getBoundingClientRect().top - anchorTop);
+      });
+    }
+    };
+    const startViewTransition = (
+      document as Document & {
+        startViewTransition?: (callback: () => void) => void;
+      }
+    ).startViewTransition;
+
+    if (
+      startViewTransition &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      startViewTransition.call(document, update);
+    } else {
+      update();
+    }
   }
 
   return (
