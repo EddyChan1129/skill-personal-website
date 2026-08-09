@@ -8,6 +8,21 @@ export type ContactState = {
   errors?: Partial<Record<"name" | "email" | "company" | "message", string>>;
 };
 
+const messages = {
+  en: {
+    success: "Thanks. Your message has been sent.",
+    validation: "Check the highlighted fields and try again.",
+    unavailable: "The form is temporarily unavailable. Please email me directly.",
+    failed: "The message could not be sent. Please try again or email me directly.",
+  },
+  zh: {
+    success: "謝謝，你的訊息已經傳送。",
+    validation: "請檢查標示的欄位後再試一次。",
+    unavailable: "表格暫時未能使用，請直接以電郵聯絡我。",
+    failed: "訊息未能傳送，請再試一次或直接以電郵聯絡我。",
+  },
+} as const;
+
 function value(formData: FormData, key: string) {
   const entry = formData.get(key);
   return typeof entry === "string" ? entry.trim() : "";
@@ -21,25 +36,25 @@ export async function sendContact(
   const email = value(formData, "email");
   const company = value(formData, "company");
   const message = value(formData, "message");
+  const locale = value(formData, "locale") === "zh" ? "zh" : "en";
+  const t = messages[locale];
 
   if (value(formData, "website")) {
     return {
       status: "success",
-      message: "Thanks. Your message has been sent.",
+      message: t.success,
     };
   }
 
-  const errors: ContactState["errors"] = validateContact({
-    name,
-    email,
-    company,
-    message,
-  });
+  const errors: ContactState["errors"] = validateContact(
+    { name, email, company, message },
+    locale,
+  );
 
   if (Object.keys(errors).length > 0) {
     return {
       status: "error",
-      message: "Check the highlighted fields and try again.",
+      message: t.validation,
       errors,
     };
   }
@@ -49,7 +64,7 @@ export async function sendContact(
   if (!apiKey) {
     return {
       status: "error",
-      message: "The form is temporarily unavailable. Please email me directly.",
+      message: t.unavailable,
     };
   }
 
@@ -83,18 +98,18 @@ export async function sendContact(
     if (!response.ok) {
       return {
         status: "error",
-        message: "The message could not be sent. Please try again or email me directly.",
+        message: t.failed,
       };
     }
 
     return {
       status: "success",
-      message: "Thanks. Your message has been sent.",
+      message: t.success,
     };
   } catch {
     return {
       status: "error",
-      message: "The message could not be sent. Please try again or email me directly.",
+      message: t.failed,
     };
   }
 }

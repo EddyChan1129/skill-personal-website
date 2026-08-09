@@ -24,4 +24,21 @@ test("contact validation accepts recruiter details and rejects unsafe input", ()
     ),
     ["name", "email", "message"],
   );
+
+  assert.deepEqual(
+    validateContact(
+      {
+        name: "陳",
+        email: "invalid",
+        company: "",
+        message: "太短",
+      },
+      "zh",
+    ),
+    {
+      name: "請輸入 2 至 80 個字元的姓名。",
+      email: "請輸入有效的電郵地址。",
+      message: "請輸入 20 至 2,000 個字元的訊息。",
+    },
+  );
 });

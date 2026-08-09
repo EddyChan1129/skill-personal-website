@@ -15,7 +15,7 @@ const bodoni = Bodoni_Moda({
 export const metadata: Metadata = {
   title: "Eddy Chan | Full-Stack Software Developer",
   description:
-    "Full-stack developer in Hong Kong with enterprise HR system experience across React, Next.js, TypeScript, Express, BullMQ, Docker and SAP workflows.",
+    "Hong Kong full-stack developer with enterprise HR system experience. 香港全端開發員，具備企業人力資源系統及 SAP 流程整合經驗。",
   authors: [{ name: "Eddy Chan" }],
   keywords: [
     "Eddy Chan",

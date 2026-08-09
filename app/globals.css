@@ -48,6 +48,10 @@ button {
   -webkit-font-smoothing: antialiased;
 }
 
+.site-root {
+  min-height: 100dvh;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -163,12 +167,62 @@ button {
 }
 
 .header-contact {
-  justify-self: end;
   color: var(--ink);
   font-size: 0.8rem;
   font-weight: 750;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 20px;
+}
+
+.language-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 780;
+  letter-spacing: 0.04em;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.language-toggle:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.language-toggle:active {
+  transform: scale(0.98);
+}
+
+.locale-zh {
+  font-family: "PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+
+.locale-zh .brand,
+.locale-zh .hero-word,
+.locale-zh h1,
+.locale-zh h2,
+.locale-zh h3,
+.locale-zh blockquote,
+.locale-zh .snapshot-statement,
+.locale-zh .workflow strong {
+  font-family: "Songti TC", "Noto Serif TC", "PMingLiU", serif;
+  letter-spacing: -0.045em;
 }
 
 .hero {

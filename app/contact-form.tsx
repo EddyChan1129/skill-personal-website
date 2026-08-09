@@ -8,16 +8,39 @@ const initialState: ContactState = {
   message: "",
 };
 
-export function ContactForm() {
+const formCopy = {
+  en: {
+    name: "Name",
+    email: "Work email",
+    company: "Company or team",
+    message: "Role or opportunity",
+    website: "Website",
+    sending: "Sending...",
+    send: "Send message",
+  },
+  zh: {
+    name: "姓名",
+    email: "工作電郵",
+    company: "公司或團隊",
+    message: "職位或合作機會",
+    website: "網站",
+    sending: "傳送中...",
+    send: "傳送訊息",
+  },
+} as const;
+
+export function ContactForm({ locale }: { locale: "en" | "zh" }) {
   const [state, formAction, pending] = useActionState(
     sendContact,
     initialState,
   );
+  const t = formCopy[locale];
 
   return (
     <form className="contact-form" action={formAction}>
+      <input type="hidden" name="locale" value={locale} />
       <div className="form-field">
-        <label htmlFor="contact-name">Name</label>
+        <label htmlFor="contact-name">{t.name}</label>
         <input
           id="contact-name"
           name="name"
@@ -37,7 +60,7 @@ export function ContactForm() {
       </div>
 
       <div className="form-field">
-        <label htmlFor="contact-email">Work email</label>
+        <label htmlFor="contact-email">{t.email}</label>
         <input
           id="contact-email"
           name="email"
@@ -56,7 +79,7 @@ export function ContactForm() {
       </div>
 
       <div className="form-field form-field-wide">
-        <label htmlFor="contact-company">Company or team</label>
+        <label htmlFor="contact-company">{t.company}</label>
         <input
           id="contact-company"
           name="company"
@@ -74,7 +97,7 @@ export function ContactForm() {
       </div>
 
       <div className="form-field form-field-wide">
-        <label htmlFor="contact-message">Role or opportunity</label>
+        <label htmlFor="contact-message">{t.message}</label>
         <textarea
           id="contact-message"
           name="message"
@@ -93,7 +116,7 @@ export function ContactForm() {
       </div>
 
       <div className="form-honeypot" aria-hidden="true">
-        <label htmlFor="contact-website">Website</label>
+        <label htmlFor="contact-website">{t.website}</label>
         <input
           id="contact-website"
           name="website"
@@ -105,7 +128,7 @@ export function ContactForm() {
 
       <div className="form-submit form-field-wide">
         <button className="button button-primary" type="submit" disabled={pending}>
-          {pending ? "Sending..." : "Send message"}
+          {pending ? t.sending : t.send}
         </button>
         <p
           className={`form-status${state.status !== "idle" ? ` is-${state.status}` : ""}`}
