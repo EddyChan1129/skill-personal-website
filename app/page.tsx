@@ -2,11 +2,11 @@ import Image from "next/image";
 import { ContactForm } from "./contact-form";
 
 const workflow = [
-  ["Sales submission", "Payment details enter the HR platform"],
-  ["HR approval", "Business rules and validation are applied"],
-  ["Background job", "BullMQ queues the approved record"],
-  ["Worker service", "A Docker-hosted process hands off to SAP"],
-  ["Verification", "The integration is checked through Postman"],
+  ["eForm", "Sales submission"],
+  ["Approval", "HR validation"],
+  ["BullMQ", "Queued record"],
+  ["Worker", "Docker service"],
+  ["SAP", "Verified handoff"],
 ] as const;
 
 const experience = [
@@ -16,10 +16,6 @@ const experience = [
     company: "Midland Realty",
     summary:
       "Maintain a large-scale enterprise HR platform and deliver production features across React, Next.js, TypeScript, Express, BullMQ and Docker.",
-    details: [
-      "Owned the IR56F frontend, backend APIs, validation and workflow logic, working from a database design supplied by the System Analyst.",
-      "Built the HRD Firsthand eForm, HR approval flow and asynchronous SAP handoff, then verified the integration through Postman.",
-    ],
   },
   {
     dates: "Jul 2024 - Nov 2024",
@@ -27,7 +23,6 @@ const experience = [
     company: "HKNova",
     summary:
       "Built production Vue.js features for a CRM platform, integrated backend APIs and delivered updates through GitLab CI/CD.",
-    details: [],
   },
   {
     dates: "Jan 2023 - Jun 2024",
@@ -35,7 +30,6 @@ const experience = [
     company: "China Mobile",
     summary:
       "Built Node.js and React automation tools plus a PHP and MySQL project tracker for internal teams.",
-    details: [],
   },
 ] as const;
 
@@ -130,27 +124,28 @@ export default function Home() {
         </section>
 
         <section className="snapshot" aria-label="Recruiter snapshot">
-          <dl className="section-shell snapshot-grid">
-            <div>
-              <dt>Current role</dt>
-              <dd>Programmer at Midland Realty</dd>
-            </div>
-            <div>
-              <dt>Core focus</dt>
-              <dd>Enterprise HR systems</dd>
-            </div>
-            <div>
-              <dt>Strength</dt>
-              <dd>End-to-end feature delivery</dd>
-            </div>
-            <div>
-              <dt>Education</dt>
-              <dd>PolyU Computing</dd>
-            </div>
-          </dl>
+          <div className="section-shell snapshot-layout">
+            <p className="snapshot-statement">
+              Enterprise HR systems, owned across the stack.
+            </p>
+            <dl className="snapshot-facts">
+              <div>
+                <dt>Now</dt>
+                <dd>Programmer at Midland Realty</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>Business-critical workflows</dd>
+              </div>
+              <div>
+                <dt>Range</dt>
+                <dd>Interface to integration</dd>
+              </div>
+            </dl>
+          </div>
         </section>
 
-        <section className="section-shell work-section reveal" id="work">
+        <section className="section-shell work-section" id="work">
           <div className="work-intro">
             <p className="eyebrow">Current production work</p>
             <h2>Enterprise software with operational weight.</h2>
@@ -160,45 +155,58 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="work-grid">
-            <div className="work-copy">
-              <h3>From approval to SAP</h3>
+          <div className="system-stage">
+            <div className="system-stage-copy">
+              <p className="project-type">HRD Firsthand</p>
+              <h3>From approval to SAP.</h3>
               <p>
-                For HRD Firsthand, I built the sales eForm and HR approval
-                workflow. Approved submissions create BullMQ jobs for a
-                Docker-hosted worker to synchronise with SAP.
+                I built the sales eForm, HR approval flow and asynchronous
+                handoff behind this production workflow.
               </p>
-              <dl className="work-facts">
-                <div>
-                  <dt>IR56F</dt>
-                  <dd>Frontend, APIs, validation and workflow logic</dd>
-                </div>
-                <div>
-                  <dt>Integration</dt>
-                  <dd>BullMQ, Docker worker, SAP and Postman</dd>
-                </div>
-                <div>
-                  <dt>Maintenance</dt>
-                  <dd>Production issues, existing modules and new features</dd>
-                </div>
-              </dl>
             </div>
-
             <ol className="workflow" aria-label="SAP integration workflow">
               {workflow.map(([title, detail]) => (
                 <li key={title}>
-                  <span>{title}</span>
+                  <strong>{title}</strong>
                   <p>{detail}</p>
                 </li>
               ))}
             </ol>
           </div>
+
+          <dl className="work-facts">
+            <div>
+              <dt>IR56F</dt>
+              <dd>Frontend, APIs, validation and workflow logic</dd>
+            </div>
+            <div>
+              <dt>Integration</dt>
+              <dd>BullMQ, Docker worker, SAP and Postman</dd>
+            </div>
+            <div>
+              <dt>Maintenance</dt>
+              <dd>Production issues, existing modules and new features</dd>
+            </div>
+          </dl>
         </section>
 
-        <section className="projects-section reveal" aria-labelledby="projects-title">
+        <section className="projects-section" aria-labelledby="projects-title">
           <div className="section-shell">
-            <h2 id="projects-title">Selected project</h2>
+            <div className="projects-heading">
+              <p className="eyebrow">Selected project</p>
+              <h2 id="projects-title">A real product, not a mock-up.</h2>
+            </div>
             <article className="project-feature">
+              <div className="project-image">
+                <Image
+                  src="/my-bae-gel-booking.jpg"
+                  alt="My Bae Gel partner booking login screen"
+                  width={1280}
+                  height={720}
+                  sizes="100vw"
+                />
+              </div>
+
               <div className="project-copy">
                 <p className="project-type">Partner booking system</p>
                 <h3>My Bae Gel Booking</h3>
@@ -229,56 +237,36 @@ export default function Home() {
                   Open live site
                 </a>
               </div>
-
-              <div className="project-image">
-                <Image
-                  src="/my-bae-gel-booking.jpg"
-                  alt="My Bae Gel partner booking login screen"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 900px) 100vw, 64vw"
-                />
-              </div>
-            </article>
-
-            <article className="secondary-project">
-              <p className="project-type">Mobile commerce</p>
-              <h3>E-commerce application</h3>
-              <p>
-                A full-stack shopping application built with React Native and
-                Firebase, extending my experience across mobile interfaces and
-                application data.
-              </p>
             </article>
           </div>
         </section>
 
-        <section className="section-shell experience-section reveal" id="experience">
-          <h2>Production experience, clearly traced.</h2>
-          <div className="timeline">
-            {experience.map((item) => (
-              <article className="timeline-row" key={item.company}>
-                <time>{item.dates}</time>
-                <div className="timeline-role">
+        <section className="section-shell experience-section" id="experience">
+          <div className="experience-heading">
+            <p className="eyebrow">Experience</p>
+            <h2>Built in production.</h2>
+          </div>
+          <div className="experience-grid">
+            <article className="experience-current">
+              <time>{experience[0].dates}</time>
+              <p>{experience[0].company}</p>
+              <h3>{experience[0].role}</h3>
+              <div>{experience[0].summary}</div>
+            </article>
+            <div className="experience-history">
+              {experience.slice(1).map((item) => (
+                <article key={item.company}>
+                  <time>{item.dates}</time>
                   <h3>{item.role}</h3>
-                  <p>{item.company}</p>
-                </div>
-                <div className="timeline-detail">
+                  <p className="experience-company">{item.company}</p>
                   <p>{item.summary}</p>
-                  {item.details.length > 0 && (
-                    <ul>
-                      {item.details.map((detail) => (
-                        <li key={detail}>{detail}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="skills-section reveal" id="skills">
+        <section className="skills-section" id="skills">
           <div className="section-shell skills-layout">
             <div className="skills-intro">
               <p className="eyebrow">Technical range</p>
@@ -299,29 +287,31 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell background-section reveal">
-          <div className="education-column">
-            <h2>Education</h2>
-            <article>
-              <time>2022 - 2024</time>
-              <h3>BSc in Computing</h3>
-              <p>The Hong Kong Polytechnic University</p>
-            </article>
-            <article>
-              <time>2025</time>
-              <h3>Postgraduate Certificate</h3>
-              <p>Mobile Application Development, George Brown College</p>
-            </article>
-          </div>
-          <div className="communication-note">
-            <blockquote>
-              Clear software starts with a clear understanding of the people
-              using it.
-            </blockquote>
-            <p>
-              Teaching Scratch to primary school students strengthened how I
-              explain technical ideas and spot where users get stuck.
-            </p>
+        <section className="background-section">
+          <div className="section-shell background-layout">
+            <div className="communication-note">
+              <blockquote>
+                Clear software starts with a clear understanding of the people
+                using it.
+              </blockquote>
+              <p>
+                Teaching Scratch to primary school students strengthened how I
+                explain technical ideas and spot where users get stuck.
+              </p>
+            </div>
+            <div className="education-column">
+              <p className="eyebrow">Education</p>
+              <article>
+                <time>2022 - 2024</time>
+                <h3>BSc in Computing</h3>
+                <p>The Hong Kong Polytechnic University</p>
+              </article>
+              <article>
+                <time>2025</time>
+                <h3>Postgraduate Certificate</h3>
+                <p>Mobile Application Development, George Brown College</p>
+              </article>
+            </div>
           </div>
         </section>
 
