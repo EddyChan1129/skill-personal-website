@@ -12,8 +12,8 @@ const formCopy = {
   en: {
     name: "Name",
     email: "Work email",
-    company: "Company or team",
-    message: "Role or opportunity",
+    company: "Company",
+    message: "Enquiry details",
     website: "Website",
     sending: "Sending...",
     send: "Send message",
@@ -21,8 +21,8 @@ const formCopy = {
   zh: {
     name: "姓名",
     email: "工作電郵",
-    company: "公司或團隊",
-    message: "職位或合作機會",
+    company: "公司",
+    message: "查詢內容",
     website: "網站",
     sending: "傳送中...",
     send: "傳送訊息",

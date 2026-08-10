@@ -13,27 +13,27 @@ const content = {
     nav: ["Work", "Experience", "Skills"],
     contact: "Contact",
     portfolio: "Portfolio",
-    heroTitle: "Software for real business workflows.",
+    heroTitle: "Enterprise full-stack development.",
     heroSummary:
-      "Full-stack developer shipping reliable HR workflows, integrations and production features with React, Next.js and Node.js.",
+      "Software developer experienced in enterprise HR platforms, workflow automation and system integration using React, Next.js and Node.js.",
     viewWork: "View work",
     resume: "Download resume",
     portraitAlt: "Editorial portrait of Eddy Chan",
     developer: "Software Developer",
-    snapshot: "Enterprise HR systems, owned across the stack.",
+    snapshot: "Full-stack delivery across enterprise applications.",
     snapshotFacts: [
-      ["Now", "Programmer at Midland Realty"],
-      ["Focus", "Business-critical workflows"],
-      ["Range", "Interface to integration"],
+      ["Current role", "Programmer at Midland Realty"],
+      ["Specialisation", "Enterprise workflows"],
+      ["Scope", "Frontend, backend and integration"],
     ],
-    workLabel: "Current production work",
-    workTitle: "Enterprise software with operational weight.",
+    workLabel: "Current role",
+    workTitle: "Enterprise HR platform development.",
     workIntro:
-      "I work inside an established HR platform, from user-facing forms to asynchronous SAP integration.",
+      "Maintain and extend a large-scale HR platform across frontend features, backend services and SAP integration.",
     systemLabel: "HRD Firsthand",
-    systemTitle: "From approval to SAP.",
+    systemTitle: "HR workflow and SAP integration.",
     systemIntro:
-      "I built the sales eForm, HR approval flow and asynchronous handoff behind this production workflow.",
+      "Developed the sales eForm, HR approval workflow and asynchronous data handoff to SAP.",
     workflow: [
       ["eForm", "Sales submission"],
       ["Approval", "HR validation"],
@@ -47,20 +47,20 @@ const content = {
       ["Maintenance", "Production issues, existing modules and new features"],
     ],
     projectLabel: "Selected project",
-    projectTitle: "A real product, not a mock-up.",
+    projectTitle: "Partner booking platform.",
     projectAlt: "My Bae Gel partner booking login screen",
     projectType: "Partner booking system",
     projectName: "My Bae Gel Booking",
     projectIntro:
-      "A live portal that gives business partners one clear place to reserve and manage production days.",
+      "Developed and deployed a portal for business partners to reserve and manage production dates.",
     projectFacts: [
       ["Access", "Authenticated partner portal"],
       ["Workflow", "Production-day reservations"],
       ["Rule", "1:00 PM America/Toronto cut-off"],
     ],
     openSite: "Open live site",
-    experienceLabel: "Experience",
-    experienceTitle: "Built in production.",
+    experienceLabel: "Employment history",
+    experienceTitle: "Software development experience.",
     experience: [
       {
         dates: "Feb 2026 - Present",
@@ -84,9 +84,10 @@ const content = {
           "Built Node.js and React automation tools plus a PHP and MySQL project tracker for internal teams.",
       },
     ],
-    skillsLabel: "Technical range",
-    skillsTitle: "I work across the handoffs.",
-    skillsIntro: "Each group maps to systems I have built, maintained or shipped.",
+    skillsLabel: "Technical skills",
+    skillsTitle: "Full-stack technology stack.",
+    skillsIntro:
+      "Technologies used across enterprise platforms, mobile applications and production deployments.",
     skills: [
       {
         title: "Frontend",
@@ -109,10 +110,21 @@ const content = {
         evidence: "Production maintenance and feature releases",
       },
     ],
-    quote:
-      "Clear software starts with a clear understanding of the people using it.",
-    teaching:
-      "Teaching Scratch to primary school students strengthened how I explain technical ideas and spot where users get stuck.",
+    academicTitle: "Academic projects and technical training.",
+    academicProjects: [
+      {
+        institution: "George Brown College",
+        title: "Mobile e-commerce app",
+        summary:
+          "Built with React Native and Firebase. Coursework also covered Kotlin, Swift and Android Studio.",
+      },
+      {
+        institution: "PolyU",
+        title: "Stock prediction FYP",
+        summary:
+          "Developed a stock prediction system as my final-year project in the BSc in Computing.",
+      },
+    ],
     educationLabel: "Education",
     education: [
       ["2022 - 2024", "BSc in Computing", "The Hong Kong Polytechnic University"],
@@ -122,9 +134,9 @@ const content = {
         "Mobile Application Development, George Brown College",
       ],
     ],
-    contactTitle: "Let's talk about the role.",
+    contactTitle: "Professional enquiries.",
     contactIntro:
-      "Need a developer who can understand an existing system and own features across the stack? I'd be glad to talk.",
+      "For software development roles or project enquiries, contact me by email or use the form.",
     switchLanguage: "切換至中文",
   },
   zh: {
@@ -132,27 +144,27 @@ const content = {
     nav: ["作品", "經驗", "技能"],
     contact: "聯絡",
     portfolio: "作品集",
-    heroTitle: "為真實業務流程打造軟件。",
+    heroTitle: "企業全端開發。",
     heroSummary:
-      "全端開發員，運用 React、Next.js 及 Node.js 交付可靠的人力資源流程、系統整合及正式環境功能。",
+      "軟件開發員，具備企業人力資源平台、流程自動化及系統整合經驗，主要使用 React、Next.js 及 Node.js。",
     viewWork: "查看作品",
     resume: "下載履歷",
     portraitAlt: "Eddy Chan 的編輯風格人像",
     developer: "軟件開發員",
-    snapshot: "由介面到後端，全程負責企業人力資源系統。",
+    snapshot: "具備企業應用程式的全端開發經驗。",
     snapshotFacts: [
       ["現職", "美聯物業程式員"],
-      ["重點", "關鍵業務流程"],
-      ["範圍", "由介面到系統整合"],
+      ["專長", "企業工作流程"],
+      ["範圍", "前端、後端及系統整合"],
     ],
-    workLabel: "現時正式環境工作",
-    workTitle: "承載實際營運需要的企業軟件。",
+    workLabel: "現職工作",
+    workTitle: "企業人力資源平台開發。",
     workIntro:
-      "我參與維護既有的人力資源平台，由使用者表格到非同步 SAP 整合均有實際交付經驗。",
+      "維護及擴展大型人力資源平台，涵蓋前端功能、後端服務及 SAP 系統整合。",
     systemLabel: "HRD Firsthand",
-    systemTitle: "由審批連接至 SAP。",
+    systemTitle: "人力資源流程及 SAP 整合。",
     systemIntro:
-      "我負責建立銷售 eForm、人力資源審批流程，以及背後的非同步資料傳送。",
+      "開發銷售 eForm、人力資源審批流程，以及傳送至 SAP 的非同步資料處理。",
     workflow: [
       ["eForm", "銷售提交資料"],
       ["審批", "人力資源驗證"],
@@ -166,20 +178,20 @@ const content = {
       ["系統維護", "處理正式環境問題、既有模組及新功能"],
     ],
     projectLabel: "精選項目",
-    projectTitle: "真正上線的產品，不是概念稿。",
+    projectTitle: "合作夥伴預約平台。",
     projectAlt: "My Bae Gel 合作夥伴預約系統登入畫面",
     projectType: "合作夥伴預約系統",
     projectName: "My Bae Gel Booking",
     projectIntro:
-      "為業務合作夥伴提供一個清晰的網上平台，預約及管理生產日期。",
+      "開發及部署網上平台，供業務合作夥伴預約及管理生產日期。",
     projectFacts: [
       ["存取", "已驗證身分的合作夥伴平台"],
       ["流程", "生產日期預約"],
       ["規則", "多倫多時間下午 1 時截止"],
     ],
     openSite: "開啟網站",
-    experienceLabel: "工作經驗",
-    experienceTitle: "真正投入正式環境。",
+    experienceLabel: "工作履歷",
+    experienceTitle: "軟件開發工作經驗。",
     experience: [
       {
         dates: "2026年2月至今",
@@ -203,9 +215,9 @@ const content = {
           "為內部團隊建立 Node.js 及 React 自動化工具，以及 PHP 和 MySQL 項目追蹤系統。",
       },
     ],
-    skillsLabel: "技術範圍",
-    skillsTitle: "掌握系統之間的每個交接點。",
-    skillsIntro: "每組技術都來自我曾經開發、維護或正式發布的系統。",
+    skillsLabel: "技術能力",
+    skillsTitle: "全端開發技術組合。",
+    skillsIntro: "曾應用於企業平台、流動應用程式及正式環境部署的技術。",
     skills: [
       {
         title: "前端開發",
@@ -228,17 +240,28 @@ const content = {
         evidence: "正式環境維護及功能發布",
       },
     ],
-    quote: "清晰的軟件，源於真正理解使用者。",
-    teaching:
-      "教授小學生 Scratch 的經驗，令我更懂得解釋技術概念，亦更容易察覺使用者遇到困難的位置。",
+    academicTitle: "學術項目及技術培訓。",
+    academicProjects: [
+      {
+        institution: "George Brown College",
+        title: "流動電商應用程式",
+        summary:
+          "使用 React Native 及 Firebase 開發，課程亦涵蓋 Kotlin、Swift 及 Android Studio。",
+      },
+      {
+        institution: "香港理工大學",
+        title: "股票預測畢業專題",
+        summary: "在電腦學理學士課程中，以股票預測系統作為畢業專題。",
+      },
+    ],
     educationLabel: "教育背景",
     education: [
       ["2022至2024年", "電腦學理學士", "香港理工大學"],
       ["2025年", "深造證書", "流動應用程式開發，George Brown College"],
     ],
-    contactTitle: "談談這個職位。",
+    contactTitle: "工作及項目查詢。",
     contactIntro:
-      "如果你正在尋找一位能理解既有系統，並可跨前後端負責功能的開發員，歡迎聯絡我。",
+      "如有軟件開發職位或項目合作查詢，可透過電郵或表格聯絡。",
     switchLanguage: "Switch to English",
   },
 } as const;
@@ -513,9 +536,17 @@ export default function Home() {
 
         <section className="background-section">
           <div className="section-shell background-layout">
-            <div className="communication-note">
-              <blockquote>{t.quote}</blockquote>
-              <p>{t.teaching}</p>
+            <div className="academic-projects">
+              <h2>{t.academicTitle}</h2>
+              <div className="academic-project-list">
+                {t.academicProjects.map((project) => (
+                  <article key={project.title}>
+                    <p className="academic-institution">{project.institution}</p>
+                    <h3>{project.title}</h3>
+                    <p>{project.summary}</p>
+                  </article>
+                ))}
+              </div>
             </div>
             <div className="education-column">
               <p className="eyebrow">{t.educationLabel}</p>

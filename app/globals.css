@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light dark;
-  --canvas: #eef0f1;
-  --surface: #e4e7e9;
-  --surface-strong: #d7dce0;
-  --ink: #15191d;
-  --body: #353c42;
-  --muted: #626a70;
-  --line: #c5cbd0;
-  --accent: #315f91;
-  --accent-hover: #244b76;
-  --accent-contrast: #f2f4f5;
-  --danger: #8c3535;
-  --display: #d9dde0;
+  color-scheme: light;
+  --canvas: #f3f1ed;
+  --surface: #eae6e0;
+  --surface-strong: #dcd6ce;
+  --ink: #201e1b;
+  --body: #403c37;
+  --muted: #625c55;
+  --line: #c8c1b8;
+  --accent: #6b513e;
+  --accent-hover: #533b2c;
+  --accent-contrast: #faf8f4;
+  --danger: #8b3f3a;
+  --display: #e2ddd6;
   --max-width: 1360px;
 }
 
@@ -218,7 +218,6 @@ button {
 .locale-zh h1,
 .locale-zh h2,
 .locale-zh h3,
-.locale-zh blockquote,
 .locale-zh .snapshot-statement,
 .locale-zh .workflow strong {
   font-family: "Songti TC", "Noto Serif TC", "PMingLiU", serif;
@@ -476,8 +475,9 @@ button {
   min-height: 560px;
   margin-top: 72px;
   padding: clamp(30px, 5vw, 72px);
-  background: var(--ink);
-  color: var(--canvas);
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--body);
   grid-template-rows: 1fr auto;
   gap: 70px;
 }
@@ -498,19 +498,18 @@ button {
 
 .system-stage-copy h3 {
   margin-top: 22px;
-  color: var(--canvas);
+  color: var(--ink);
 }
 
 .system-stage-copy > p:last-child,
-.project-copy > p:not(.project-type),
-.communication-note > p {
+.project-copy > p:not(.project-type) {
   margin: 23px 0 0;
   line-height: 1.68;
 }
 
 .system-stage-copy > p:last-child {
   max-width: 520px;
-  color: color-mix(in srgb, var(--canvas) 70%, transparent);
+  color: var(--body);
 }
 
 .work-facts {
@@ -565,7 +564,7 @@ button {
   display: grid;
   margin: 0;
   padding: 0;
-  border-top: 1px solid color-mix(in srgb, var(--canvas) 28%, transparent);
+  border-top: 1px solid var(--line);
   grid-template-columns: repeat(5, minmax(0, 1fr));
   list-style: none;
 }
@@ -581,12 +580,12 @@ button {
 
 .workflow li + li {
   padding-left: 18px;
-  border-left: 1px solid color-mix(in srgb, var(--canvas) 28%, transparent);
+  border-left: 1px solid var(--line);
 }
 
 .workflow strong {
   display: block;
-  color: var(--canvas);
+  color: var(--ink);
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.5rem, 2.3vw, 2.65rem);
   font-weight: 540;
@@ -601,7 +600,7 @@ button {
 
 .workflow p {
   margin: 15px 0 0;
-  color: color-mix(in srgb, var(--canvas) 64%, transparent);
+  color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   line-height: 1.4;
@@ -816,7 +815,8 @@ button {
 
 .skills-section {
   padding-block: clamp(92px, 10vw, 148px);
-  background: var(--ink);
+  border-block: 1px solid var(--line);
+  background: var(--surface-strong);
 }
 
 .skills-intro {
@@ -825,12 +825,12 @@ button {
 
 .skills-intro h2 {
   margin-top: 22px;
-  color: var(--canvas);
+  color: var(--ink);
   font-size: clamp(3rem, 5vw, 5.3rem);
 }
 
 .skills-intro > p:last-child {
-  color: color-mix(in srgb, var(--canvas) 64%, transparent);
+  color: var(--body);
 }
 
 .skills-grid {
@@ -842,7 +842,7 @@ button {
 
 .skills-grid article {
   padding-top: 18px;
-  border-top: 1px solid color-mix(in srgb, var(--canvas) 28%, transparent);
+  border-top: 1px solid var(--line);
 }
 
 .skills-grid article:nth-child(1),
@@ -856,7 +856,7 @@ button {
 }
 
 .skills-grid h3 {
-  color: var(--canvas);
+  color: var(--ink);
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(2rem, 3.2vw, 3.8rem);
   font-weight: 540;
@@ -865,14 +865,14 @@ button {
 
 .skills-grid p {
   margin: 15px 0 0;
-  color: color-mix(in srgb, var(--canvas) 84%, transparent);
+  color: var(--body);
   line-height: 1.62;
 }
 
 .skills-grid small {
   display: block;
   margin-top: 20px;
-  color: color-mix(in srgb, var(--canvas) 52%, transparent);
+  color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.5;
 }
@@ -884,7 +884,7 @@ button {
 .background-layout {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: end;
+  align-items: start;
   gap: 72px 24px;
 }
 
@@ -910,11 +910,11 @@ button {
   line-height: 1.5;
 }
 
-.communication-note {
+.academic-projects {
   grid-column: 1 / span 8;
 }
 
-.communication-note blockquote {
+.academic-projects h2 {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display), Georgia, serif;
@@ -924,9 +924,42 @@ button {
   line-height: 0.9;
 }
 
-.communication-note > p {
-  max-width: 540px;
+.academic-project-list {
+  display: grid;
+  margin-top: clamp(44px, 5vw, 70px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.academic-project-list article {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.academic-project-list .academic-institution {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 760;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.academic-project-list h3 {
+  margin: 18px 0 0;
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.75rem, 2.5vw, 2.8rem);
+  font-weight: 540;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.academic-project-list article > p:last-child {
+  max-width: 36rem;
+  margin: 18px 0 0;
   color: var(--muted);
+  line-height: 1.65;
 }
 
 .contact-section {
@@ -1170,7 +1203,7 @@ a:focus-visible {
   }
 
   .workflow li:hover {
-    background: color-mix(in srgb, var(--canvas) 5%, transparent);
+    background: color-mix(in srgb, var(--canvas) 45%, transparent);
     transform: translateY(-3px);
   }
 
@@ -1333,7 +1366,7 @@ a:focus-visible {
   .workflow li + li {
     min-height: auto;
     padding: 18px 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--canvas) 28%, transparent);
+    border-bottom: 1px solid var(--line);
     border-left: 0;
   }
 
@@ -1409,7 +1442,7 @@ a:focus-visible {
   .skills-intro,
   .skills-grid,
   .education-column,
-  .communication-note {
+  .academic-projects {
     grid-column: 1;
   }
 
@@ -1422,8 +1455,13 @@ a:focus-visible {
     grid-column: 1;
   }
 
-  .communication-note blockquote {
+  .academic-projects h2 {
     font-size: clamp(3.2rem, 15vw, 5.4rem);
+  }
+
+  .academic-project-list {
+    grid-template-columns: 1fr;
+    gap: 34px;
   }
 
   .contact-section {
@@ -1475,23 +1513,6 @@ a:focus-visible {
   .footer-inner {
     align-items: flex-start;
     flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: #111417;
-    --surface: #191e22;
-    --surface-strong: #232a2f;
-    --ink: #e9ecee;
-    --body: #c6ccd0;
-    --muted: #98a1a8;
-    --line: #30373c;
-    --accent: #78a3d0;
-    --accent-hover: #95b8db;
-    --accent-contrast: #12171b;
-    --danger: #e78d8d;
-    --display: #242a2f;
   }
 }
 
