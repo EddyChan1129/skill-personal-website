@@ -13,21 +13,22 @@ const content = {
     nav: ["Work", "Experience", "Skills"],
     contact: "Contact",
     portfolio: "Portfolio",
-    heroTitle: "Enterprise full-stack development.",
+    heroKicker: "Full-stack software developer · Hong Kong",
+    heroTitle: "Full-stack engineering for enterprise systems.",
     heroSummary:
-      "Software developer experienced in enterprise HR platforms, workflow automation and system integration using React, Next.js and Node.js.",
+      "Software developer specialising in enterprise HR platforms, workflow automation and system integration using React, Next.js and Node.js.",
     viewWork: "View work",
     resume: "Download resume",
     portraitAlt: "Editorial portrait of Eddy Chan",
     developer: "Software Developer",
-    snapshot: "Full-stack delivery across enterprise applications.",
+    snapshot: "Enterprise systems, delivered across the stack.",
     snapshotFacts: [
       ["Current role", "Programmer at Midland Realty"],
       ["Specialisation", "Enterprise workflows"],
       ["Scope", "Frontend, backend and integration"],
     ],
     workLabel: "Current role",
-    workTitle: "Enterprise HR platform development.",
+    workTitle: "HR platform engineering and SAP integration.",
     workIntro:
       "Maintain and extend a large-scale HR platform across frontend features, backend services and SAP integration.",
     systemLabel: "HRD Firsthand",
@@ -110,7 +111,7 @@ const content = {
         evidence: "Production maintenance and feature releases",
       },
     ],
-    academicTitle: "Academic projects and technical training.",
+    academicTitle: "Academic projects and mobile development training.",
     academicProjects: [
       {
         institution: "George Brown College",
@@ -134,7 +135,7 @@ const content = {
         "Mobile Application Development, George Brown College",
       ],
     ],
-    contactTitle: "Professional enquiries.",
+    contactTitle: "Software roles and project enquiries.",
     contactIntro:
       "For software development roles or project enquiries, contact me by email or use the form.",
     switchLanguage: "切換至中文",
@@ -144,21 +145,22 @@ const content = {
     nav: ["作品", "經驗", "技能"],
     contact: "聯絡",
     portfolio: "作品集",
-    heroTitle: "企業全端開發。",
+    heroKicker: "全端軟件開發員 · 香港",
+    heroTitle: "企業系統全端工程。",
     heroSummary:
-      "軟件開發員，具備企業人力資源平台、流程自動化及系統整合經驗，主要使用 React、Next.js 及 Node.js。",
+      "專注企業人力資源平台、流程自動化及系統整合，主要使用 React、Next.js 及 Node.js。",
     viewWork: "查看作品",
     resume: "下載履歷",
     portraitAlt: "Eddy Chan 的編輯風格人像",
     developer: "軟件開發員",
-    snapshot: "具備企業應用程式的全端開發經驗。",
+    snapshot: "涵蓋企業系統前端、後端及整合開發。",
     snapshotFacts: [
       ["現職", "美聯物業程式員"],
       ["專長", "企業工作流程"],
       ["範圍", "前端、後端及系統整合"],
     ],
     workLabel: "現職工作",
-    workTitle: "企業人力資源平台開發。",
+    workTitle: "人力資源平台工程及 SAP 整合。",
     workIntro:
       "維護及擴展大型人力資源平台，涵蓋前端功能、後端服務及 SAP 系統整合。",
     systemLabel: "HRD Firsthand",
@@ -240,7 +242,7 @@ const content = {
         evidence: "正式環境維護及功能發布",
       },
     ],
-    academicTitle: "學術項目及技術培訓。",
+    academicTitle: "學術項目及流動開發培訓。",
     academicProjects: [
       {
         institution: "George Brown College",
@@ -259,7 +261,7 @@ const content = {
       ["2022至2024年", "電腦學理學士", "香港理工大學"],
       ["2025年", "深造證書", "流動應用程式開發，George Brown College"],
     ],
-    contactTitle: "工作及項目查詢。",
+    contactTitle: "軟件職位及項目查詢。",
     contactIntro:
       "如有軟件開發職位或項目合作查詢，可透過電郵或表格聯絡。",
     switchLanguage: "Switch to English",
@@ -291,12 +293,12 @@ export default function Home() {
 
     const anchorTop = anchor?.getBoundingClientRect().top;
     const update = () => {
-    flushSync(() => setLocale(nextLocale));
-    if (anchor && anchorTop !== undefined) {
-      requestAnimationFrame(() => {
-        window.scrollBy(0, anchor.getBoundingClientRect().top - anchorTop);
-      });
-    }
+      flushSync(() => setLocale(nextLocale));
+      if (anchor && anchorTop !== undefined) {
+        requestAnimationFrame(() => {
+          window.scrollBy(0, anchor.getBoundingClientRect().top - anchorTop);
+        });
+      }
     };
     const startViewTransition = (
       document as Document & {
@@ -360,6 +362,7 @@ export default function Home() {
           </p>
           <div className="section-shell hero-grid">
             <div className="hero-copy">
+              <p className="hero-kicker">{t.heroKicker}</p>
               <h1>{t.heroTitle}</h1>
               <p className="hero-summary">{t.heroSummary}</p>
               <div className="hero-actions">

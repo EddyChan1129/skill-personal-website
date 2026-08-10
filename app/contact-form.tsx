@@ -15,6 +15,7 @@ const formCopy = {
     company: "Company",
     message: "Enquiry details",
     website: "Website",
+    required: "Required",
     sending: "Sending...",
     send: "Send message",
   },
@@ -24,6 +25,7 @@ const formCopy = {
     company: "公司",
     message: "查詢內容",
     website: "網站",
+    required: "必填",
     sending: "傳送中...",
     send: "傳送訊息",
   },
@@ -40,7 +42,9 @@ export function ContactForm({ locale }: { locale: "en" | "zh" }) {
     <form className="contact-form" action={formAction}>
       <input type="hidden" name="locale" value={locale} />
       <div className="form-field">
-        <label htmlFor="contact-name">{t.name}</label>
+        <label htmlFor="contact-name">
+          {t.name} <span>{t.required}</span>
+        </label>
         <input
           id="contact-name"
           name="name"
@@ -60,7 +64,9 @@ export function ContactForm({ locale }: { locale: "en" | "zh" }) {
       </div>
 
       <div className="form-field">
-        <label htmlFor="contact-email">{t.email}</label>
+        <label htmlFor="contact-email">
+          {t.email} <span>{t.required}</span>
+        </label>
         <input
           id="contact-email"
           name="email"
@@ -97,7 +103,9 @@ export function ContactForm({ locale }: { locale: "en" | "zh" }) {
       </div>
 
       <div className="form-field form-field-wide">
-        <label htmlFor="contact-message">{t.message}</label>
+        <label htmlFor="contact-message">
+          {t.message} <span>{t.required}</span>
+        </label>
         <textarea
           id="contact-message"
           name="message"

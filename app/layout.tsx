@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
+import { Archivo, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const archivo = Archivo({
   variable: "--font-body",
   subsets: ["latin"],
 });
 
-const bodoni = Bodoni_Moda({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
 });
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${bodoni.variable} h-full antialiased`}
+      className={`${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>
     </html>
