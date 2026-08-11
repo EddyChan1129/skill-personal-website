@@ -14,7 +14,7 @@ const content = {
     nav: ["Work", "Experience", "Skills"],
     contact: "Contact",
     heroKicker: "Full-stack software developer, Hong Kong",
-    heroTitle: "Systems built for production.",
+    heroTitle: "Software for business operations.",
     heroSummary:
       "I build enterprise workflows and reliable web applications with React, Next.js and Node.js.",
     viewWork: "View work",
@@ -121,7 +121,7 @@ const content = {
     nav: ["作品", "經驗", "技能"],
     contact: "聯絡",
     heroKicker: "全端軟件開發員，香港",
-    heroTitle: "正式環境系統。",
+    heroTitle: "支援業務營運的軟件系統。",
     heroSummary:
       "使用 React、Next.js 及 Node.js 開發企業流程和可靠的網絡應用程式。",
     viewWork: "查看作品",
@@ -267,15 +267,8 @@ export default function Home() {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    let hasSeenIntro = false;
 
-    try {
-      hasSeenIntro = sessionStorage.getItem("eddy-portfolio-intro") === "1";
-    } catch {
-      hasSeenIntro = false;
-    }
-
-    if (reduceMotion || hasSeenIntro) {
+    if (reduceMotion) {
       const skipTimer = window.setTimeout(() => {
         setLoaderState("done");
       }, 0);
@@ -320,12 +313,6 @@ export default function Home() {
       }
 
       setLoaderState("exiting");
-
-      try {
-        sessionStorage.setItem("eddy-portfolio-intro", "1");
-      } catch {
-        // The branded intro still works when storage is unavailable.
-      }
     }, 1100);
 
     const doneTimer = window.setTimeout(() => {
