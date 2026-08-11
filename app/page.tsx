@@ -1,40 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { ContactForm } from "./contact-form";
 
 type Locale = "en" | "zh";
+type LoaderState = "checking" | "active" | "exiting" | "done";
 
 const content = {
   en: {
     skip: "Skip to content",
     nav: ["Work", "Experience", "Skills"],
     contact: "Contact",
-    portfolio: "Portfolio",
-    heroKicker: "Full-stack software developer · Hong Kong",
-    heroTitle: "Full-stack engineering for enterprise systems.",
+    heroKicker: "Full-stack software developer, Hong Kong",
+    heroTitle: "Systems built for production.",
     heroSummary:
-      "Software developer specialising in enterprise HR platforms, workflow automation and system integration using React, Next.js and Node.js.",
+      "I build enterprise workflows and reliable web applications with React, Next.js and Node.js.",
     viewWork: "View work",
     resume: "Download resume",
-    portraitAlt: "Editorial portrait of Eddy Chan",
+    portraitAlt: "Portrait of Eddy Chan",
     developer: "Software Developer",
-    snapshot: "Enterprise systems, delivered across the stack.",
-    snapshotFacts: [
-      ["Current role", "Programmer at Midland Realty"],
-      ["Specialisation", "Enterprise workflows"],
-      ["Scope", "Frontend, backend and integration"],
+    loaderLabels: [
+      "FULL-STACK SYSTEMS",
+      "WORKFLOW AUTOMATION",
+      "SAP INTEGRATION",
+      "MOBILE APPLICATIONS",
+      "PRODUCTION DELIVERY",
     ],
-    workLabel: "Current role",
-    workTitle: "HR platform engineering and SAP integration.",
+    workTitle: "Selected systems.",
     workIntro:
-      "Maintain and extend a large-scale HR platform across frontend features, backend services and SAP integration.",
-    systemLabel: "HRD Firsthand",
-    systemTitle: "HR workflow and SAP integration.",
-    systemIntro:
-      "Developed the sales eForm, HR approval workflow and asynchronous data handoff to SAP.",
+      "Two production projects spanning enterprise integration and customer operations.",
+    enterpriseContext: "Enterprise platform",
+    enterpriseTitle: "HR workflow and SAP integration.",
+    enterpriseSummary:
+      "Built eForm, approval and queued worker flows that validate and deliver employee records to SAP.",
+    enterpriseMeta: [
+      ["Role", "Programmer"],
+      ["Stack", "React, Next.js, Express, BullMQ, Docker"],
+      ["Contribution", "Frontend, APIs, workflow logic and production support"],
+    ],
     workflow: [
       ["eForm", "Sales submission"],
       ["Approval", "HR validation"],
@@ -42,239 +47,298 @@ const content = {
       ["Worker", "Docker service"],
       ["SAP", "Verified handoff"],
     ],
-    workFacts: [
-      ["IR56F", "Frontend, APIs, validation and workflow logic"],
-      ["Integration", "BullMQ, Docker worker, SAP and Postman"],
-      ["Maintenance", "Production issues, existing modules and new features"],
+    workflowLabel: "SAP integration workflow",
+    productContext: "Production administration portal",
+    productTitle: "My Bae Gel production admin.",
+    productSummary:
+      "A production administration portal for managing café bookings, products and partner access.",
+    productMeta: [
+      ["Role", "Full-stack development"],
+      ["Stack", "Next.js, Firebase"],
+      ["Features", "Calendar booking, catalogue management, café accounts"],
     ],
-    projectLabel: "Selected project",
-    projectTitle: "Partner booking platform.",
-    projectAlt: "My Bae Gel partner booking login screen",
-    projectType: "Partner booking system",
-    projectName: "My Bae Gel Booking",
-    projectIntro:
-      "Developed and deployed a portal for business partners to reserve and manage production dates.",
-    projectFacts: [
-      ["Access", "Authenticated partner portal"],
-      ["Workflow", "Production-day reservations"],
-      ["Rule", "1:00 PM America/Toronto cut-off"],
-    ],
+    dashboardAlt:
+      "My Bae Gel production dashboard showing booking metrics and calendar",
+    dashboardCaption: "Production calendar and booking overview",
+    itemsAlt: "My Bae Gel product catalogue management interface",
+    itemsCaption: "Catalogue search, filters and item management",
+    accountsAlt: "My Bae Gel café account creation interface",
+    accountsCaption: "Partner onboarding and account creation",
     openSite: "Open live site",
-    experienceLabel: "Employment history",
-    experienceTitle: "Software development experience.",
+    experienceTitle: "Experience.",
     experience: [
       {
         dates: "Feb 2026 - Present",
         role: "Programmer",
         company: "Midland Realty",
         summary:
-          "Maintain a large-scale enterprise HR platform and deliver production features across React, Next.js, TypeScript, Express, BullMQ and Docker.",
+          "Ship and maintain enterprise HR workflows, integrations and production features across the stack.",
       },
       {
         dates: "Jul 2024 - Nov 2024",
         role: "Frontend Developer",
         company: "HKNova",
         summary:
-          "Built production Vue.js features for a CRM platform, integrated backend APIs and delivered updates through GitLab CI/CD.",
+          "Built Vue.js CRM features, integrated APIs and delivered updates through GitLab CI/CD.",
       },
       {
         dates: "Jan 2023 - Jun 2024",
         role: "IT Intern",
         company: "China Mobile",
         summary:
-          "Built Node.js and React automation tools plus a PHP and MySQL project tracker for internal teams.",
+          "Built internal automation tools and a PHP/MySQL project tracker.",
       },
     ],
-    skillsLabel: "Technical skills",
-    skillsTitle: "Full-stack technology stack.",
-    skillsIntro:
-      "Technologies used across enterprise platforms, mobile applications and production deployments.",
+    skillsTitle: "Capabilities.",
     skills: [
-      {
-        title: "Frontend",
-        list: "TypeScript, React, Next.js, Vue.js, React Native",
-        evidence: "Enterprise HR, CRM and mobile applications",
-      },
-      {
-        title: "Backend",
-        list: "Node.js, Express, REST APIs, BullMQ, worker services",
-        evidence: "Approval workflows and background processing",
-      },
-      {
-        title: "Data and integration",
-        list: "MySQL, PostgreSQL, MongoDB, Firebase, SAP, Postman",
-        evidence: "Business systems and external integration",
-      },
-      {
-        title: "Delivery",
-        list: "Docker, Git, GitLab CI/CD, Vercel, Agile",
-        evidence: "Production maintenance and feature releases",
-      },
+      ["Frontend", "TypeScript, React, Next.js, Vue.js, React Native"],
+      ["Backend", "Node.js, Express, REST APIs, BullMQ, worker services"],
+      ["Data and integration", "MySQL, PostgreSQL, MongoDB, Firebase, SAP"],
+      ["Delivery", "Docker, Git, GitLab CI/CD, Vercel, Agile"],
     ],
-    academicTitle: "Academic projects and mobile development training.",
-    academicProjects: [
-      {
-        institution: "George Brown College",
-        title: "Mobile e-commerce app",
-        summary:
-          "Built with React Native and Firebase. Coursework also covered Kotlin, Swift and Android Studio.",
-      },
-      {
-        institution: "PolyU",
-        title: "Stock prediction FYP",
-        summary:
-          "Developed a stock prediction system as my final-year project in the BSc in Computing.",
-      },
-    ],
-    educationLabel: "Education",
+    educationTitle: "Education and applied projects.",
     education: [
-      ["2022 - 2024", "BSc in Computing", "The Hong Kong Polytechnic University"],
-      [
-        "2025",
-        "Postgraduate Certificate",
-        "Mobile Application Development, George Brown College",
-      ],
+      {
+        dates: "2025",
+        qualification: "Postgraduate Certificate in Mobile Application Development",
+        school: "George Brown College",
+        project:
+          "Built a Firebase and React Native e-commerce app. Also worked with Kotlin, Swift and Android Studio.",
+      },
+      {
+        dates: "2022 - 2024",
+        qualification: "BSc in Computing",
+        school: "The Hong Kong Polytechnic University",
+        project: "Completed a stock prediction system as the final-year project.",
+      },
     ],
     contactTitle: "Software roles and project enquiries.",
-    contactIntro:
-      "For software development roles or project enquiries, contact me by email or use the form.",
+    contactIntro: "Contact me by email or send a short project brief.",
     switchLanguage: "切換至中文",
   },
   zh: {
     skip: "跳到主要內容",
     nav: ["作品", "經驗", "技能"],
     contact: "聯絡",
-    portfolio: "作品集",
-    heroKicker: "全端軟件開發員 · 香港",
-    heroTitle: "企業系統全端工程。",
+    heroKicker: "全端軟件開發員，香港",
+    heroTitle: "正式環境系統。",
     heroSummary:
-      "專注企業人力資源平台、流程自動化及系統整合，主要使用 React、Next.js 及 Node.js。",
+      "使用 React、Next.js 及 Node.js 開發企業流程和可靠的網絡應用程式。",
     viewWork: "查看作品",
     resume: "下載履歷",
-    portraitAlt: "Eddy Chan 的編輯風格人像",
+    portraitAlt: "Eddy Chan 的人像照片",
     developer: "軟件開發員",
-    snapshot: "涵蓋企業系統前端、後端及整合開發。",
-    snapshotFacts: [
-      ["現職", "美聯物業程式員"],
-      ["專長", "企業工作流程"],
-      ["範圍", "前端、後端及系統整合"],
+    loaderLabels: [
+      "全端系統",
+      "流程自動化",
+      "SAP 系統整合",
+      "流動應用程式",
+      "正式環境交付",
     ],
-    workLabel: "現職工作",
-    workTitle: "人力資源平台工程及 SAP 整合。",
-    workIntro:
-      "維護及擴展大型人力資源平台，涵蓋前端功能、後端服務及 SAP 系統整合。",
-    systemLabel: "HRD Firsthand",
-    systemTitle: "人力資源流程及 SAP 整合。",
-    systemIntro:
-      "開發銷售 eForm、人力資源審批流程，以及傳送至 SAP 的非同步資料處理。",
+    workTitle: "精選系統。",
+    workIntro: "兩個正式項目，涵蓋企業整合及客戶營運。",
+    enterpriseContext: "企業平台",
+    enterpriseTitle: "人力資源流程及 SAP 整合。",
+    enterpriseSummary:
+      "建立 eForm、審批及背景工作流程，驗證員工資料並傳送至 SAP。",
+    enterpriseMeta: [
+      ["角色", "程式員"],
+      ["技術", "React、Next.js、Express、BullMQ、Docker"],
+      ["負責範圍", "前端、API、流程邏輯及正式環境支援"],
+    ],
     workflow: [
-      ["eForm", "銷售提交資料"],
+      ["eForm", "銷售提交"],
       ["審批", "人力資源驗證"],
       ["BullMQ", "建立背景工作"],
       ["Worker", "Docker 服務"],
-      ["SAP", "驗證資料傳送"],
+      ["SAP", "確認資料傳送"],
     ],
-    workFacts: [
-      ["IR56F", "前端、API、資料驗證及流程邏輯"],
-      ["系統整合", "BullMQ、Docker worker、SAP 及 Postman"],
-      ["系統維護", "處理正式環境問題、既有模組及新功能"],
+    workflowLabel: "SAP 系統整合流程",
+    productContext: "生產管理平台",
+    productTitle: "My Bae Gel 生產管理系統。",
+    productSummary:
+      "管理咖啡店預約、產品目錄及合作夥伴帳戶的生產管理平台。",
+    productMeta: [
+      ["角色", "全端開發"],
+      ["技術", "Next.js、Firebase"],
+      ["功能", "日曆預約、產品管理、咖啡店帳戶"],
     ],
-    projectLabel: "精選項目",
-    projectTitle: "合作夥伴預約平台。",
-    projectAlt: "My Bae Gel 合作夥伴預約系統登入畫面",
-    projectType: "合作夥伴預約系統",
-    projectName: "My Bae Gel Booking",
-    projectIntro:
-      "開發及部署網上平台，供業務合作夥伴預約及管理生產日期。",
-    projectFacts: [
-      ["存取", "已驗證身分的合作夥伴平台"],
-      ["流程", "生產日期預約"],
-      ["規則", "多倫多時間下午 1 時截止"],
-    ],
+    dashboardAlt: "My Bae Gel 生產管理儀表板，顯示預約數據及日曆",
+    dashboardCaption: "生產日曆及預約概覽",
+    itemsAlt: "My Bae Gel 產品目錄管理介面",
+    itemsCaption: "產品搜尋、篩選及項目管理",
+    accountsAlt: "My Bae Gel 咖啡店帳戶建立介面",
+    accountsCaption: "合作夥伴登記及帳戶建立",
     openSite: "開啟網站",
-    experienceLabel: "工作履歷",
-    experienceTitle: "軟件開發工作經驗。",
+    experienceTitle: "工作經驗。",
     experience: [
       {
         dates: "2026年2月至今",
         role: "程式員",
         company: "美聯物業",
-        summary:
-          "維護大型企業人力資源平台，並使用 React、Next.js、TypeScript、Express、BullMQ 及 Docker 交付正式功能。",
+        summary: "交付及維護企業人力資源流程、系統整合及正式環境功能。",
       },
       {
         dates: "2024年7月至11月",
         role: "前端開發員",
         company: "HKNova",
-        summary:
-          "為 CRM 平台開發 Vue.js 正式功能、整合後端 API，並透過 GitLab CI/CD 發布更新。",
+        summary: "開發 Vue.js CRM 功能、整合 API，並透過 GitLab CI/CD 發布。",
       },
       {
         dates: "2023年1月至2024年6月",
         role: "資訊科技實習生",
         company: "中國移動",
-        summary:
-          "為內部團隊建立 Node.js 及 React 自動化工具，以及 PHP 和 MySQL 項目追蹤系統。",
+        summary: "建立內部自動化工具，以及 PHP/MySQL 項目追蹤系統。",
       },
     ],
-    skillsLabel: "技術能力",
-    skillsTitle: "全端開發技術組合。",
-    skillsIntro: "曾應用於企業平台、流動應用程式及正式環境部署的技術。",
+    skillsTitle: "技術能力。",
     skills: [
-      {
-        title: "前端開發",
-        list: "TypeScript、React、Next.js、Vue.js、React Native",
-        evidence: "企業人力資源、CRM 及流動應用程式",
-      },
-      {
-        title: "後端開發",
-        list: "Node.js、Express、REST API、BullMQ、worker services",
-        evidence: "審批流程及背景工作處理",
-      },
-      {
-        title: "數據及整合",
-        list: "MySQL、PostgreSQL、MongoDB、Firebase、SAP、Postman",
-        evidence: "業務系統及外部系統整合",
-      },
-      {
-        title: "交付及部署",
-        list: "Docker、Git、GitLab CI/CD、Vercel、Agile",
-        evidence: "正式環境維護及功能發布",
-      },
+      ["前端開發", "TypeScript、React、Next.js、Vue.js、React Native"],
+      ["後端開發", "Node.js、Express、REST API、BullMQ、worker services"],
+      ["數據及整合", "MySQL、PostgreSQL、MongoDB、Firebase、SAP"],
+      ["交付及部署", "Docker、Git、GitLab CI/CD、Vercel、Agile"],
     ],
-    academicTitle: "學術項目及流動開發培訓。",
-    academicProjects: [
-      {
-        institution: "George Brown College",
-        title: "流動電商應用程式",
-        summary:
-          "使用 React Native 及 Firebase 開發，課程亦涵蓋 Kotlin、Swift 及 Android Studio。",
-      },
-      {
-        institution: "香港理工大學",
-        title: "股票預測畢業專題",
-        summary: "在電腦學理學士課程中，以股票預測系統作為畢業專題。",
-      },
-    ],
-    educationLabel: "教育背景",
+    educationTitle: "教育背景及應用項目。",
     education: [
-      ["2022至2024年", "電腦學理學士", "香港理工大學"],
-      ["2025年", "深造證書", "流動應用程式開發，George Brown College"],
+      {
+        dates: "2025年",
+        qualification: "流動應用程式開發深造證書",
+        school: "George Brown College",
+        project:
+          "使用 Firebase 及 React Native 開發電商應用程式，亦接觸 Kotlin、Swift 及 Android Studio。",
+      },
+      {
+        dates: "2022至2024年",
+        qualification: "電腦學理學士",
+        school: "香港理工大學",
+        project: "以股票預測系統作為畢業專題。",
+      },
     ],
     contactTitle: "軟件職位及項目查詢。",
-    contactIntro:
-      "如有軟件開發職位或項目合作查詢，可透過電郵或表格聯絡。",
+    contactIntro: "可透過電郵聯絡，或提交簡短項目資料。",
     switchLanguage: "Switch to English",
   },
 } as const;
 
 export default function Home() {
   const [locale, setLocale] = useState<Locale>("en");
+  const [loaderState, setLoaderState] =
+    useState<LoaderState>("checking");
+  const [loaderStep, setLoaderStep] = useState(0);
+  const loaderMarkRef = useRef<HTMLDivElement>(null);
   const t = content[locale];
 
   useEffect(() => {
     document.documentElement.lang = locale === "zh" ? "zh-HK" : "en";
   }, [locale]);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    document.documentElement.classList.add("motion-ready");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10%", threshold: 0.14 },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("motion-ready");
+    };
+  }, []);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    let hasSeenIntro = false;
+
+    try {
+      hasSeenIntro = sessionStorage.getItem("eddy-portfolio-intro") === "1";
+    } catch {
+      hasSeenIntro = false;
+    }
+
+    if (reduceMotion || hasSeenIntro) {
+      const skipTimer = window.setTimeout(() => {
+        setLoaderState("done");
+      }, 0);
+      return () => window.clearTimeout(skipTimer);
+    }
+
+    const activateTimer = window.setTimeout(() => {
+      setLoaderState("active");
+    }, 0);
+
+    const stepTimer = window.setInterval(() => {
+      setLoaderStep((step) => Math.min(step + 1, 4));
+    }, 220);
+
+    const exitTimer = window.setTimeout(() => {
+      window.clearInterval(stepTimer);
+      setLoaderStep(4);
+
+      const mark = loaderMarkRef.current;
+      const brand = document.querySelector<HTMLElement>(".brand");
+
+      if (mark && brand) {
+        const from = mark.getBoundingClientRect();
+        const to = brand.getBoundingClientRect();
+        const translateX = to.left + to.width / 2 - (from.left + from.width / 2);
+        const translateY = to.top + to.height / 2 - (from.top + from.height / 2);
+        const scale = Math.max(to.width / from.width, 0.22);
+
+        mark.animate(
+          [
+            { transform: "translate3d(0, 0, 0) scale(1)" },
+            {
+              transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
+            },
+          ],
+          {
+            duration: 360,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            fill: "forwards",
+          },
+        );
+      }
+
+      setLoaderState("exiting");
+
+      try {
+        sessionStorage.setItem("eddy-portfolio-intro", "1");
+      } catch {
+        // The branded intro still works when storage is unavailable.
+      }
+    }, 1100);
+
+    const doneTimer = window.setTimeout(() => {
+      setLoaderState("done");
+    }, 1480);
+
+    return () => {
+      window.clearTimeout(activateTimer);
+      window.clearInterval(stepTimer);
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(doneTimer);
+    };
+  }, []);
 
   function toggleLocale() {
     const nextLocale = locale === "en" ? "zh" : "en";
@@ -317,7 +381,30 @@ export default function Home() {
   }
 
   return (
-    <div className={`site-root locale-${locale}`} lang={locale === "zh" ? "zh-HK" : "en"}>
+    <div
+      className={`site-root locale-${locale}${loaderState === "done" ? " intro-complete" : ""}`}
+      lang={locale === "zh" ? "zh-HK" : "en"}
+    >
+      {loaderState !== "done" && (
+        <div
+          className={`preloader is-${loaderState}`}
+          aria-hidden="true"
+        >
+          <div className="preloader-center">
+            <div className="preloader-mark" ref={loaderMarkRef}>
+              E<span>C</span>
+            </div>
+            <div className="preloader-status">
+              <p>{t.loaderLabels[loaderStep]}</p>
+              <span>{loaderStep * 25}%</span>
+            </div>
+            <div className="preloader-track">
+              <span style={{ transform: `scaleX(${loaderStep / 4})` }} />
+            </div>
+          </div>
+        </div>
+      )}
+
       <a className="skip-link" href="#main-content">
         {t.skip}
       </a>
@@ -357,9 +444,6 @@ export default function Home() {
 
       <main id="main-content">
         <section className="hero" id="top">
-          <p className="hero-word" aria-hidden="true">
-            {t.portfolio}
-          </p>
           <div className="section-shell hero-grid">
             <div className="hero-copy">
               <p className="hero-kicker">{t.heroKicker}</p>
@@ -396,168 +480,155 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          className="snapshot"
-          aria-label={locale === "zh" ? "招聘人員摘要" : "Recruiter snapshot"}
-        >
-          <div className="section-shell snapshot-layout">
-            <p className="snapshot-statement">
-              {t.snapshot}
-            </p>
-            <dl className="snapshot-facts">
-              {t.snapshotFacts.map(([label, value]) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        <section className="section-shell work-section" id="work">
-          <div className="work-intro">
-            <p className="eyebrow">{t.workLabel}</p>
+        <section className="work-section" id="work">
+          <div className="section-shell section-heading" data-reveal>
             <h2>{t.workTitle}</h2>
             <p>{t.workIntro}</p>
           </div>
 
-          <div className="system-stage">
-            <div className="system-stage-copy">
-              <p className="project-type">{t.systemLabel}</p>
-              <h3>{t.systemTitle}</h3>
-              <p>{t.systemIntro}</p>
+          <article className="case-study enterprise-case section-shell" data-reveal>
+            <div className="case-copy">
+              <p className="case-context">{t.enterpriseContext}</p>
+              <h3>{t.enterpriseTitle}</h3>
+              <p>{t.enterpriseSummary}</p>
+              <dl className="case-meta">
+                {t.enterpriseMeta.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-            <ol
-              className="workflow"
-              aria-label={locale === "zh" ? "SAP 整合流程" : "SAP integration workflow"}
-            >
-              {t.workflow.map(([title, detail]) => (
-                <li key={title}>
+
+            <ol className="workflow" aria-label={t.workflowLabel}>
+              {t.workflow.map(([title, detail], index) => (
+                <li key={title} style={{ transitionDelay: `${index * 50}ms` }}>
                   <strong>{title}</strong>
-                  <p>{detail}</p>
+                  <span>{detail}</span>
                 </li>
               ))}
             </ol>
-          </div>
+          </article>
 
-          <dl className="work-facts">
-            {t.workFacts.map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section className="projects-section" aria-labelledby="projects-title">
-          <div className="section-shell">
-            <div className="projects-heading">
-              <p className="eyebrow">{t.projectLabel}</p>
-              <h2 id="projects-title">{t.projectTitle}</h2>
+          <article className="case-study product-case section-shell" data-reveal>
+            <div className="case-copy product-case-copy">
+              <p className="case-context">{t.productContext}</p>
+              <h3>{t.productTitle}</h3>
+              <p>{t.productSummary}</p>
+              <dl className="case-meta">
+                {t.productMeta.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <a
+                className="text-link"
+                href="https://my-bae-gel-booking.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t.openSite}
+              </a>
             </div>
-            <article className="project-feature">
-              <div className="project-image">
-                <Image
-                  src="/my-bae-gel-booking.jpg"
-                  alt={t.projectAlt}
-                  width={1280}
-                  height={720}
-                  sizes="100vw"
-                />
-              </div>
 
-              <div className="project-copy">
-                <p className="project-type">{t.projectType}</p>
-                <h3>{t.projectName}</h3>
-                <p>{t.projectIntro}</p>
-                <dl className="project-facts">
-                  {t.projectFacts.map(([label, value]) => (
-                    <div key={label}>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <a
-                  className="text-link"
-                  href="https://my-bae-gel-booking.vercel.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {t.openSite}
-                </a>
+            <div className="product-gallery">
+              <figure className="product-shot product-shot-main reveal-media">
+                <Image
+                  src="/my-bae-gel-dashboard.png"
+                  alt={t.dashboardAlt}
+                  width={960}
+                  height={1998}
+                  sizes="(max-width: 767px) 100vw, 90vw"
+                />
+                <figcaption>{t.dashboardCaption}</figcaption>
+              </figure>
+              <div className="product-supporting">
+                <figure className="product-shot reveal-media">
+                  <Image
+                    src="/my-bae-gel-items.png"
+                    alt={t.itemsAlt}
+                    width={960}
+                    height={1998}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                  <figcaption>{t.itemsCaption}</figcaption>
+                </figure>
+                <figure className="product-shot reveal-media">
+                  <Image
+                    src="/my-bae-gel-cafe-accounts.png"
+                    alt={t.accountsAlt}
+                    width={960}
+                    height={1998}
+                    sizes="(max-width: 767px) 100vw, 42vw"
+                  />
+                  <figcaption>{t.accountsCaption}</figcaption>
+                </figure>
               </div>
-            </article>
-          </div>
+            </div>
+          </article>
         </section>
 
-        <section className="section-shell experience-section" id="experience">
-          <div className="experience-heading">
-            <p className="eyebrow">{t.experienceLabel}</p>
+        <section className="experience-section section-shell" id="experience">
+          <div className="section-heading" data-reveal>
             <h2>{t.experienceTitle}</h2>
           </div>
-          <div className="experience-grid">
-            <article className="experience-current">
-              <time>{t.experience[0].dates}</time>
-              <p>{t.experience[0].company}</p>
-              <h3>{t.experience[0].role}</h3>
-              <div>{t.experience[0].summary}</div>
-            </article>
-            <div className="experience-history">
-              {t.experience.slice(1).map((item) => (
-                <article key={item.company}>
-                  <time>{item.dates}</time>
+          <div className="experience-list">
+            {t.experience.map((item, index) => (
+              <article
+                key={index}
+                data-reveal
+                style={{ transitionDelay: `${index * 50}ms` }}
+              >
+                <time>{item.dates}</time>
+                <div>
                   <h3>{item.role}</h3>
                   <p className="experience-company">{item.company}</p>
-                  <p>{item.summary}</p>
-                </article>
-              ))}
-            </div>
+                </div>
+                <p>{item.summary}</p>
+              </article>
+            ))}
           </div>
         </section>
 
         <section className="skills-section" id="skills">
           <div className="section-shell skills-layout">
-            <div className="skills-intro">
-              <p className="eyebrow">{t.skillsLabel}</p>
+            <div className="section-heading" data-reveal>
               <h2>{t.skillsTitle}</h2>
-              <p>{t.skillsIntro}</p>
             </div>
             <div className="skills-grid">
-              {t.skills.map((skill) => (
-                <article key={skill.title}>
-                  <h3>{skill.title}</h3>
-                  <p>{skill.list}</p>
-                  <small>{skill.evidence}</small>
+              {t.skills.map(([title, list], index) => (
+                <article
+                  key={index}
+                  data-reveal
+                  style={{ transitionDelay: `${index * 50}ms` }}
+                >
+                  <h3>{title}</h3>
+                  <p>{list}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="background-section">
-          <div className="section-shell background-layout">
-            <div className="academic-projects">
-              <h2>{t.academicTitle}</h2>
-              <div className="academic-project-list">
-                {t.academicProjects.map((project) => (
-                  <article key={project.title}>
-                    <p className="academic-institution">{project.institution}</p>
-                    <h3>{project.title}</h3>
-                    <p>{project.summary}</p>
-                  </article>
-                ))}
-              </div>
+        <section className="education-section">
+          <div className="section-shell">
+            <div className="section-heading" data-reveal>
+              <h2>{t.educationTitle}</h2>
             </div>
-            <div className="education-column">
-              <p className="eyebrow">{t.educationLabel}</p>
-              {t.education.map(([dates, qualification, school]) => (
-                <article key={qualification}>
-                  <time>{dates}</time>
-                  <h3>{qualification}</h3>
-                  <p>{school}</p>
+            <div className="education-grid">
+              {t.education.map((item, index) => (
+                <article
+                  key={index}
+                  data-reveal
+                  style={{ transitionDelay: `${index * 60}ms` }}
+                >
+                  <time>{item.dates}</time>
+                  <h3>{item.qualification}</h3>
+                  <p className="education-school">{item.school}</p>
+                  <p>{item.project}</p>
                 </article>
               ))}
             </div>
@@ -565,7 +636,7 @@ export default function Home() {
         </section>
 
         <section className="contact-section" id="contact">
-          <div className="section-shell contact-inner">
+          <div className="section-shell contact-inner" data-reveal>
             <div className="contact-copy">
               <h2>{t.contactTitle}</h2>
               <p>{t.contactIntro}</p>

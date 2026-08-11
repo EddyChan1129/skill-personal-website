@@ -17,15 +17,14 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#15191d",
-          color: "#e9ecee",
-          fontFamily: "Georgia, serif",
-          fontSize: 37,
-          fontWeight: 600,
-          letterSpacing: -5,
+          background: "#f7f4ee",
+          color: "#173b32",
+          fontSize: 34,
+          fontWeight: 700,
+          letterSpacing: -4,
         }}
       >
-        E<span style={{ color: "#78a3d0" }}>C</span>
+        E<span style={{ color: "#c95735" }}>C</span>
       </div>
     ),
     size,
