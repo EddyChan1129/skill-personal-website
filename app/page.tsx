@@ -58,12 +58,22 @@ const content = {
       ["Features", "Calendar booking, catalogue management, café accounts"],
     ],
     dashboardAlt:
-      "My Bae Gel production dashboard showing booking metrics and calendar",
-    dashboardCaption: "Production calendar and booking overview",
-    itemsAlt: "My Bae Gel product catalogue management interface",
-    itemsCaption: "Catalogue search, filters and item management",
-    accountsAlt: "My Bae Gel café account creation interface",
-    accountsCaption: "Partner onboarding and account creation",
+      "My Bae Gel café booking interface with a production calendar and order builder",
+    dashboardCaption: "Café booking calendar and order builder",
+    itemsAlt: "My Bae Gel catalogue creation and product management interface",
+    itemsCaption: "Catalogue creation and product availability",
+    availableDateAlt:
+      "My Bae Gel admin form for blocking an available production date",
+    availableDateCaption: "Block an available production date",
+    blockedDateAlt:
+      "My Bae Gel admin view showing a blocked production date",
+    blockedDateCaption: "Blocked date state and reopen action",
+    accountsAlt: "My Bae Gel café account onboarding form",
+    accountsCaption: "Café account onboarding",
+    successAlt: "My Bae Gel booking confirmation with an order summary",
+    successCaption: "Booking confirmation and order summary",
+    emailAlt: "My Bae Gel order notification email",
+    emailCaption: "Order notification email delivery",
     openSite: "Open live site",
     experienceTitle: "Experience.",
     experience: [
@@ -163,12 +173,20 @@ const content = {
       ["技術", "Next.js、Firebase"],
       ["功能", "日曆預約、產品管理、咖啡店帳戶"],
     ],
-    dashboardAlt: "My Bae Gel 生產管理儀表板，顯示預約數據及日曆",
-    dashboardCaption: "生產日曆及預約概覽",
-    itemsAlt: "My Bae Gel 產品目錄管理介面",
-    itemsCaption: "產品搜尋、篩選及項目管理",
-    accountsAlt: "My Bae Gel 咖啡店帳戶建立介面",
-    accountsCaption: "合作夥伴登記及帳戶建立",
+    dashboardAlt: "My Bae Gel 咖啡店預約介面，顯示生產日曆及訂單建立功能",
+    dashboardCaption: "咖啡店預約日曆及訂單建立",
+    itemsAlt: "My Bae Gel 產品目錄建立及管理介面",
+    itemsCaption: "產品目錄建立及供應狀態管理",
+    availableDateAlt: "My Bae Gel 管理員封鎖可用生產日期的表格",
+    availableDateCaption: "封鎖可用生產日期",
+    blockedDateAlt: "My Bae Gel 管理員查看已封鎖生產日期的畫面",
+    blockedDateCaption: "已封鎖日期及重新開放操作",
+    accountsAlt: "My Bae Gel 咖啡店帳戶登記表格",
+    accountsCaption: "咖啡店帳戶登記",
+    successAlt: "My Bae Gel 預約成功及訂單摘要畫面",
+    successCaption: "預約確認及訂單摘要",
+    emailAlt: "My Bae Gel 訂單通知電郵",
+    emailCaption: "訂單通知電郵發送",
     openSite: "開啟網站",
     experienceTitle: "工作經驗。",
     experience: [
@@ -227,6 +245,56 @@ export default function Home() {
   const [loaderStep, setLoaderStep] = useState(0);
   const loaderMarkRef = useRef<HTMLDivElement>(null);
   const t = content[locale];
+  const productShots = [
+    {
+      src: "/my-bae-gel-booking.png",
+      alt: t.dashboardAlt,
+      caption: t.dashboardCaption,
+      width: 2428,
+      height: 2002,
+      className: "product-shot-wide",
+    },
+    {
+      src: "/my-bae-gel-date-available.png",
+      alt: t.availableDateAlt,
+      caption: t.availableDateCaption,
+      width: 986,
+      height: 1426,
+      className: "product-shot-portrait",
+    },
+    {
+      src: "/my-bae-gel-date-blocked.png",
+      alt: t.blockedDateAlt,
+      caption: t.blockedDateCaption,
+      width: 986,
+      height: 1188,
+      className: "product-shot-portrait",
+    },
+    {
+      src: "/my-bae-gel-catalogue.png",
+      alt: t.itemsAlt,
+      caption: t.itemsCaption,
+      width: 1420,
+      height: 1820,
+      className: "product-shot-portrait",
+    },
+    {
+      src: "/my-bae-gel-account.png",
+      alt: t.accountsAlt,
+      caption: t.accountsCaption,
+      width: 1414,
+      height: 1564,
+      className: "product-shot-portrait",
+    },
+    {
+      src: "/my-bae-gel-booking-success.png",
+      alt: t.successAlt,
+      caption: t.successCaption,
+      width: 1218,
+      height: 1738,
+      className: "product-shot-portrait",
+    },
+  ] as const;
 
   useEffect(() => {
     document.documentElement.lang = locale === "zh" ? "zh-HK" : "en";
@@ -392,6 +460,12 @@ export default function Home() {
         </div>
       )}
 
+      <div className="ambient-effects" aria-hidden="true">
+        <span className="ambient-effect ambient-effect-one" />
+        <span className="ambient-effect ambient-effect-two" />
+        <span className="ambient-effect ambient-effect-three" />
+      </div>
+
       <a className="skip-link" href="#main-content">
         {t.skip}
       </a>
@@ -468,12 +542,15 @@ export default function Home() {
         </section>
 
         <section className="work-section" id="work">
-          <div className="section-shell section-heading" data-reveal>
+          <div className="section-shell section-heading" data-reveal="left">
             <h2>{t.workTitle}</h2>
             <p>{t.workIntro}</p>
           </div>
 
-          <article className="case-study enterprise-case section-shell" data-reveal>
+          <article
+            className="case-study enterprise-case section-shell"
+            data-reveal="right"
+          >
             <div className="case-copy">
               <p className="case-context">{t.enterpriseContext}</p>
               <h3>{t.enterpriseTitle}</h3>
@@ -498,7 +575,10 @@ export default function Home() {
             </ol>
           </article>
 
-          <article className="case-study product-case section-shell" data-reveal>
+          <article
+            className="case-study product-case section-shell"
+            data-reveal="left"
+          >
             <div className="case-copy product-case-copy">
               <p className="case-context">{t.productContext}</p>
               <h3>{t.productTitle}</h3>
@@ -522,51 +602,52 @@ export default function Home() {
             </div>
 
             <div className="product-gallery">
-              <figure className="product-shot product-shot-main reveal-media">
-                <Image
-                  src="/my-bae-gel-dashboard.png"
-                  alt={t.dashboardAlt}
-                  width={960}
-                  height={1998}
-                  sizes="(max-width: 767px) 100vw, 90vw"
-                />
-                <figcaption>{t.dashboardCaption}</figcaption>
-              </figure>
-              <div className="product-supporting">
-                <figure className="product-shot reveal-media">
-                  <Image
-                    src="/my-bae-gel-items.png"
-                    alt={t.itemsAlt}
-                    width={960}
-                    height={1998}
-                    sizes="(max-width: 767px) 100vw, 50vw"
-                  />
-                  <figcaption>{t.itemsCaption}</figcaption>
-                </figure>
-                <figure className="product-shot reveal-media">
-                  <Image
-                    src="/my-bae-gel-cafe-accounts.png"
-                    alt={t.accountsAlt}
-                    width={960}
-                    height={1998}
-                    sizes="(max-width: 767px) 100vw, 42vw"
-                  />
-                  <figcaption>{t.accountsCaption}</figcaption>
-                </figure>
+              <div className="product-marquee">
+                <div className="product-marquee-track">
+                  {[0, 1, 2].map((copyIndex) => (
+                    <div
+                      className="product-marquee-set"
+                      aria-hidden={copyIndex > 0}
+                      key={copyIndex}
+                    >
+                      {productShots.map((shot) => (
+                        <figure
+                          className={`product-shot ${shot.className}`}
+                          key={shot.src}
+                        >
+                          <Image
+                            src={shot.src}
+                            alt={copyIndex > 0 ? "" : shot.alt}
+                            width={shot.width}
+                            height={shot.height}
+                            sizes="(max-width: 900px) min(86vw, 360px), min(28vw, 396px)"
+                            loading={
+                              copyIndex === 0 &&
+                              shot.src === "/my-bae-gel-booking.png"
+                                ? "eager"
+                                : "lazy"
+                            }
+                          />
+                          <figcaption>{shot.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </article>
         </section>
 
         <section className="experience-section section-shell" id="experience">
-          <div className="section-heading" data-reveal>
+          <div className="section-heading" data-reveal="right">
             <h2>{t.experienceTitle}</h2>
           </div>
           <div className="experience-list">
             {t.experience.map((item, index) => (
               <article
                 key={index}
-                data-reveal
+                data-reveal={index % 2 === 0 ? "left" : "right"}
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
                 <time>{item.dates}</time>
@@ -582,14 +663,14 @@ export default function Home() {
 
         <section className="skills-section" id="skills">
           <div className="section-shell skills-layout">
-            <div className="section-heading" data-reveal>
+            <div className="section-heading" data-reveal="left">
               <h2>{t.skillsTitle}</h2>
             </div>
             <div className="skills-grid">
               {t.skills.map(([title, list], index) => (
                 <article
                   key={index}
-                  data-reveal
+                  data-reveal={index % 2 === 0 ? "right" : "left"}
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >
                   <h3>{title}</h3>
@@ -602,14 +683,14 @@ export default function Home() {
 
         <section className="education-section">
           <div className="section-shell">
-            <div className="section-heading" data-reveal>
+            <div className="section-heading" data-reveal="right">
               <h2>{t.educationTitle}</h2>
             </div>
             <div className="education-grid">
               {t.education.map((item, index) => (
                 <article
                   key={index}
-                  data-reveal
+                  data-reveal={index % 2 === 0 ? "left" : "right"}
                   style={{ transitionDelay: `${index * 60}ms` }}
                 >
                   <time>{item.dates}</time>
@@ -623,7 +704,7 @@ export default function Home() {
         </section>
 
         <section className="contact-section" id="contact">
-          <div className="section-shell contact-inner" data-reveal>
+          <div className="section-shell contact-inner" data-reveal="left">
             <div className="contact-copy">
               <h2>{t.contactTitle}</h2>
               <p>{t.contactIntro}</p>
