@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { ContactForm } from "./contact-form";
+import { projects } from "./projects/project-data";
 
 type Locale = "en" | "zh";
 type LoaderState = "checking" | "active" | "exiting" | "done";
@@ -30,7 +32,7 @@ const content = {
     ],
     workTitle: "Selected systems.",
     workIntro:
-      "Two production projects spanning enterprise integration and customer operations.",
+      "Enterprise delivery plus two personal products. Open a project to view its full case study.",
     enterpriseContext: "Enterprise platform",
     enterpriseTitle: "HR workflow and SAP integration.",
     enterpriseSummary:
@@ -48,33 +50,7 @@ const content = {
       ["SAP", "Verified handoff"],
     ],
     workflowLabel: "SAP integration workflow",
-    productContext: "Production administration portal",
-    productTitle: "My Bae Gel production admin.",
-    productSummary:
-      "A production administration portal for managing café bookings, products and partner access.",
-    productMeta: [
-      ["Role", "Full-stack development"],
-      ["Stack", "Next.js, Firebase"],
-      ["Features", "Calendar booking, catalogue management, café accounts"],
-    ],
-    dashboardAlt:
-      "My Bae Gel café booking interface with a production calendar and order builder",
-    dashboardCaption: "Café booking calendar and order builder",
-    itemsAlt: "My Bae Gel catalogue creation and product management interface",
-    itemsCaption: "Catalogue creation and product availability",
-    availableDateAlt:
-      "My Bae Gel admin form for blocking an available production date",
-    availableDateCaption: "Block an available production date",
-    blockedDateAlt:
-      "My Bae Gel admin view showing a blocked production date",
-    blockedDateCaption: "Blocked date state and reopen action",
-    accountsAlt: "My Bae Gel café account onboarding form",
-    accountsCaption: "Café account onboarding",
-    successAlt: "My Bae Gel booking confirmation with an order summary",
-    successCaption: "Booking confirmation and order summary",
-    emailAlt: "My Bae Gel order notification email",
-    emailCaption: "Order notification email delivery",
-    openSite: "Open live site",
+    viewCaseStudy: "View case study",
     experienceTitle: "Experience.",
     experience: [
       {
@@ -146,7 +122,7 @@ const content = {
       "正式環境交付",
     ],
     workTitle: "精選系統。",
-    workIntro: "兩個正式項目，涵蓋企業整合及客戶營運。",
+    workIntro: "企業系統交付及兩個個人產品。開啟項目即可查看完整案例。",
     enterpriseContext: "企業平台",
     enterpriseTitle: "人力資源流程及 SAP 整合。",
     enterpriseSummary:
@@ -164,30 +140,7 @@ const content = {
       ["SAP", "確認資料傳送"],
     ],
     workflowLabel: "SAP 系統整合流程",
-    productContext: "生產管理平台",
-    productTitle: "My Bae Gel 生產管理系統。",
-    productSummary:
-      "管理咖啡店預約、產品目錄及合作夥伴帳戶的生產管理平台。",
-    productMeta: [
-      ["角色", "全端開發"],
-      ["技術", "Next.js、Firebase"],
-      ["功能", "日曆預約、產品管理、咖啡店帳戶"],
-    ],
-    dashboardAlt: "My Bae Gel 咖啡店預約介面，顯示生產日曆及訂單建立功能",
-    dashboardCaption: "咖啡店預約日曆及訂單建立",
-    itemsAlt: "My Bae Gel 產品目錄建立及管理介面",
-    itemsCaption: "產品目錄建立及供應狀態管理",
-    availableDateAlt: "My Bae Gel 管理員封鎖可用生產日期的表格",
-    availableDateCaption: "封鎖可用生產日期",
-    blockedDateAlt: "My Bae Gel 管理員查看已封鎖生產日期的畫面",
-    blockedDateCaption: "已封鎖日期及重新開放操作",
-    accountsAlt: "My Bae Gel 咖啡店帳戶登記表格",
-    accountsCaption: "咖啡店帳戶登記",
-    successAlt: "My Bae Gel 預約成功及訂單摘要畫面",
-    successCaption: "預約確認及訂單摘要",
-    emailAlt: "My Bae Gel 訂單通知電郵",
-    emailCaption: "訂單通知電郵發送",
-    openSite: "開啟網站",
+    viewCaseStudy: "查看項目詳情",
     experienceTitle: "工作經驗。",
     experience: [
       {
@@ -245,56 +198,19 @@ export default function Home() {
   const [loaderStep, setLoaderStep] = useState(0);
   const loaderMarkRef = useRef<HTMLDivElement>(null);
   const t = content[locale];
-  const productShots = [
-    {
-      src: "/my-bae-gel-booking.png",
-      alt: t.dashboardAlt,
-      caption: t.dashboardCaption,
-      width: 2428,
-      height: 2002,
-      className: "product-shot-wide",
-    },
-    {
-      src: "/my-bae-gel-date-available.png",
-      alt: t.availableDateAlt,
-      caption: t.availableDateCaption,
-      width: 986,
-      height: 1426,
-      className: "product-shot-portrait",
-    },
-    {
-      src: "/my-bae-gel-date-blocked.png",
-      alt: t.blockedDateAlt,
-      caption: t.blockedDateCaption,
-      width: 986,
-      height: 1188,
-      className: "product-shot-portrait",
-    },
-    {
-      src: "/my-bae-gel-catalogue.png",
-      alt: t.itemsAlt,
-      caption: t.itemsCaption,
-      width: 1420,
-      height: 1820,
-      className: "product-shot-portrait",
-    },
-    {
-      src: "/my-bae-gel-account.png",
-      alt: t.accountsAlt,
-      caption: t.accountsCaption,
-      width: 1414,
-      height: 1564,
-      className: "product-shot-portrait",
-    },
-    {
-      src: "/my-bae-gel-booking-success.png",
-      alt: t.successAlt,
-      caption: t.successCaption,
-      width: 1218,
-      height: 1738,
-      className: "product-shot-portrait",
-    },
-  ] as const;
+  const product = projects["my-bae-gel"];
+  const productCopy = product.copy[locale];
+  const productCover = product.shots[0];
+  const learning = projects["fowl-to-phoenix"];
+  const learningCopy = learning.copy[locale];
+  const learningCover = learning.shots[0];
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("lang") === "zh") {
+      const localeTimer = window.setTimeout(() => setLocale("zh"), 0);
+      return () => window.clearTimeout(localeTimer);
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = locale === "zh" ? "zh-HK" : "en";
@@ -413,6 +329,20 @@ export default function Home() {
     const anchorTop = anchor?.getBoundingClientRect().top;
     const update = () => {
       flushSync(() => setLocale(nextLocale));
+      const url = new URL(window.location.href);
+
+      if (nextLocale === "zh") {
+        url.searchParams.set("lang", "zh");
+      } else {
+        url.searchParams.delete("lang");
+      }
+
+      window.history.replaceState(
+        window.history.state,
+        "",
+        `${url.pathname}${url.search}${url.hash}`,
+      );
+
       if (anchor && anchorTop !== undefined) {
         requestAnimationFrame(() => {
           window.scrollBy(0, anchor.getBoundingClientRect().top - anchorTop);
@@ -576,66 +506,86 @@ export default function Home() {
           </article>
 
           <article
-            className="case-study product-case section-shell"
+            className="case-study project-preview section-shell"
             data-reveal="left"
           >
-            <div className="case-copy product-case-copy">
-              <p className="case-context">{t.productContext}</p>
-              <h3>{t.productTitle}</h3>
-              <p>{t.productSummary}</p>
+            <div className="case-copy project-preview-copy">
+              <p className="case-context">{productCopy.context}</p>
+              <h3>{productCopy.title}</h3>
+              <p>{productCopy.summary}</p>
               <dl className="case-meta">
-                {t.productMeta.map(([label, value]) => (
+                {productCopy.meta.map(([label, value]) => (
                   <div key={label}>
                     <dt>{label}</dt>
                     <dd>{value}</dd>
                   </div>
                 ))}
               </dl>
-              <a
-                className="text-link"
-                href="https://my-bae-gel-booking.vercel.app/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {t.openSite}
-              </a>
             </div>
 
-            <div className="product-gallery">
-              <div className="product-marquee">
-                <div className="product-marquee-track">
-                  {[0, 1, 2].map((copyIndex) => (
-                    <div
-                      className="product-marquee-set"
-                      aria-hidden={copyIndex > 0}
-                      key={copyIndex}
-                    >
-                      {productShots.map((shot) => (
-                        <figure
-                          className={`product-shot ${shot.className}`}
-                          key={shot.src}
-                        >
-                          <Image
-                            src={shot.src}
-                            alt={copyIndex > 0 ? "" : shot.alt}
-                            width={shot.width}
-                            height={shot.height}
-                            sizes="(max-width: 900px) min(86vw, 360px), min(28vw, 396px)"
-                            loading={
-                              copyIndex === 0 &&
-                              shot.src === "/my-bae-gel-booking.png"
-                                ? "eager"
-                                : "lazy"
-                            }
-                          />
-                          <figcaption>{shot.caption}</figcaption>
-                        </figure>
-                      ))}
-                    </div>
-                  ))}
+            <Link
+              className="project-preview-link"
+              href={`/projects/my-bae-gel${locale === "zh" ? "?lang=zh" : ""}`}
+              aria-label={`${t.viewCaseStudy}: ${productCopy.title}`}
+            >
+              <figure>
+                <div className="project-preview-image">
+                  <Image
+                    src={productCover.src}
+                    alt={productCover.copy[locale].alt}
+                    width={productCover.width}
+                    height={productCover.height}
+                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1120px) 55vw, 58vw"
+                  />
                 </div>
-              </div>
+                <figcaption>
+                  <span>{productCover.copy[locale].caption}</span>
+                  <strong>{t.viewCaseStudy}</strong>
+                </figcaption>
+              </figure>
+            </Link>
+          </article>
+
+          <article
+            className="case-study project-preview section-shell"
+            data-reveal="right"
+            id="fowl-to-phoenix"
+          >
+            <div className="case-copy project-preview-copy">
+              <p className="case-context">{learningCopy.context}</p>
+              <h3>{learningCopy.title}</h3>
+              <p>{learningCopy.summary}</p>
+              <dl className="case-meta">
+                {learningCopy.meta.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
+
+            <Link
+              className="project-preview-link"
+              href={`/projects/fowl-to-phoenix${locale === "zh" ? "?lang=zh" : ""}`}
+              aria-label={`${t.viewCaseStudy}: ${learningCopy.title}`}
+            >
+              <figure>
+                <div className="project-preview-image project-preview-image-portrait">
+                  <Image
+                    src={learningCover.src}
+                    alt={learningCover.copy[locale].alt}
+                    width={learningCover.width}
+                    height={learningCover.height}
+                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1120px) 55vw, 58vw"
+                  />
+                </div>
+                <figcaption>
+                  <span>{learningCover.copy[locale].caption}</span>
+                  <strong>{t.viewCaseStudy}</strong>
+                </figcaption>
+              </figure>
+            </Link>
           </article>
         </section>
 
