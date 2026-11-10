@@ -74,62 +74,9 @@ textarea {
   isolation: isolate;
 }
 
-.ambient-effects {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.ambient-effect {
-  position: absolute;
-  width: clamp(120px, 14vw, 220px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--accent) 17%, transparent) 0,
-    color-mix(in srgb, var(--accent) 5%, transparent) 24%,
-    transparent 68%
-  );
-  opacity: 0.7;
-  will-change: transform;
-  animation: ambient-drift 18s ease-in-out infinite alternate;
-}
-
-.ambient-effect-one {
-  top: 9%;
-  right: -3%;
-}
-
-.ambient-effect-two {
-  top: 45%;
-  left: -4%;
-  animation-delay: -7s;
-  animation-duration: 22s;
-}
-
-.ambient-effect-three {
-  top: 73%;
-  right: 5%;
-  animation-delay: -13s;
-  animation-duration: 20s;
-}
-
 main {
   position: relative;
   z-index: 1;
-}
-
-@keyframes ambient-drift {
-  from {
-    transform: translate3d(-10px, 12px, 0) scale(0.92);
-  }
-
-  to {
-    transform: translate3d(22px, -18px, 0) scale(1.05);
-  }
 }
 
 a {
@@ -523,6 +470,8 @@ textarea:focus-visible {
 }
 
 .portrait-frame img {
+  position: relative;
+  z-index: 0;
   display: block;
   width: 100%;
   max-height: calc(100dvh - 176px);
@@ -530,6 +479,61 @@ textarea:focus-visible {
   object-position: center 28%;
   filter: saturate(0.76) contrast(1.02);
   transform: scale(1);
+}
+
+.three-hero-background {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1100ms var(--ease-reveal) 240ms;
+  -webkit-mask-image: radial-gradient(
+    circle at 92% 8%,
+    black 0,
+    rgb(0 0 0 / 78%) 28%,
+    transparent 52%
+  );
+  mask-image: radial-gradient(
+    circle at 92% 8%,
+    black 0,
+    rgb(0 0 0 / 78%) 28%,
+    transparent 52%
+  );
+}
+
+.intro-complete .three-hero-background {
+  opacity: 0.72;
+}
+
+.three-hero-background .threeui-background,
+.three-hero-background canvas,
+.three-hero-static {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.three-hero-background .threeui-background {
+  overflow: hidden;
+  background: transparent;
+}
+
+.three-hero-background canvas {
+  display: block;
+  mix-blend-mode: soft-light;
+}
+
+.three-hero-static {
+  background-image: radial-gradient(
+    circle,
+    rgb(23 59 50 / 18%) 0 1px,
+    transparent 1.4px
+  );
+  background-size: 18px 18px;
+  opacity: 0.46;
 }
 
 .portrait-frame figcaption {
@@ -1785,8 +1789,8 @@ textarea:focus-visible {
     display: none;
   }
 
-  .ambient-effects {
-    display: none;
+  .intro-complete .three-hero-background {
+    opacity: 0.32;
   }
 
   [data-reveal],

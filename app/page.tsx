@@ -2,10 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { ContactForm } from "./contact-form";
 import { projects } from "./projects/project-data";
+
+const ThreeHeroBackground = dynamic(
+  () => import("./three-hero-background"),
+  { ssr: false },
+);
 
 type Locale = "en" | "zh";
 type LoaderState = "checking" | "active" | "exiting" | "done";
@@ -390,12 +396,6 @@ export default function Home() {
         </div>
       )}
 
-      <div className="ambient-effects" aria-hidden="true">
-        <span className="ambient-effect ambient-effect-one" />
-        <span className="ambient-effect ambient-effect-two" />
-        <span className="ambient-effect ambient-effect-three" />
-      </div>
-
       <a className="skip-link" href="#main-content">
         {t.skip}
       </a>
@@ -463,6 +463,7 @@ export default function Home() {
                 sizes="(max-width: 767px) 100vw, 52vw"
                 preload
               />
+              <ThreeHeroBackground active={loaderState === "done"} />
               <figcaption>
                 <strong>Eddy Chan</strong>
                 <span>{t.developer}</span>
